@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="index.js"></script>
+    <title>AngularJs</title>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <div ng-app ng-controller="myCtrl" class="container">
+        <h1 class="text-center"> IT Company's Records</h1>
+        <div class="form-group col-md-3" style="margin-left: -15px">
+            <label for="exampleInputEmail1">Search By</label>
+            <input type="text" ng-model="searchKeyword" class="form-control" placeholder="Search by ...">
+        </div>
+        <table class="table table-bordered text-center">
+
+            <thead>
+                <tr>
+                    <th class="text-center">Name
+                    </th>
+                    <th class="text-center">Employees
+                    </th>
+                    <th class="text-center">Head Office
+                    </th>
+                    <th class="text-center">Action
+                    </th>
+                </tr>
+            </thead>
+            <tr ng-repeat="company in companies  | filter: searchKeyword ">
+                <td>
+                    <span ng-hide="firstName[$index]" ng-click="editFname(company.name)"> {{ company.name}}</span>
+                    <input ng-show="firstName[$index]" ng-model="company.name" ng-mouseleave="doneEditingFname(company.name)" autofocus />                     
+                </td>
+                <td>
+                    <span ng-hide="lastName[$index]" ng-click="editLname($index)">  {{company.employees}}</span>
+                    <input ng-show="lastName[$index]" ng-model="company.employees"  ng-mouseleave="doneEditingLname($index)" autofocus />   
+                </td>
+                <td>
+                    <span ng-hide="email[$index]" ng-click="editEmail($index)"> {{company.headoffice}}</span>
+                    <input ng-show="email[$index]" ng-model="company.headoffice"  ng-mouseleave="doneEditingEmail($index)" autofocus /> 
+                </td>
+                <td class="text-center">
+                    <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(company.name)" />
+                </td>
+            </tr>
+        </table>
+
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add Records
+        </button>
+        <span style="text-decoration: underline">Click on cell to edit the field</span>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h3 class="modal-title" id="exampleModalLabel">Add Records</h3>
+                        <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close" style="float:right; margin-top: -30px">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Company Name</label>
+                                <input type="text" ng-model="name" class="form-control" placeholder="Company Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Company Employees</label>
+                                <input type="text" ng-model="employees" class="form-control" placeholder="Company Employees">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Company headoffice</label>
+                                <input type="text" ng-model="headoffice" class="form-control" placeholder="Company headoffice">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" ng-click="addRow( name, employees, headoffice)" class="btn btn-primary">Add Record</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
